@@ -10,8 +10,9 @@ import (
 	"strconv"
 	"time"
 
+	"context"
+
 	"github.com/crushedpixel/go-timecode/timecode"
-	"golang.org/x/net/context"
 )
 
 type FrameType uint
@@ -78,9 +79,9 @@ loop:
 			if r.Scan() {
 				frame := r.Bytes()
 				frameType := Unknown
-				if bytes.Compare(frame[5:8], pframePrefix) == 0 {
+				if bytes.Equal(frame[5:8], pframePrefix) {
 					frameType = PFrame
-				} else if bytes.Compare(frame[5:8], iframePrefix) == 0 {
+				} else if bytes.Equal(frame[5:8], iframePrefix) {
 					frameType = IFrame
 				}
 

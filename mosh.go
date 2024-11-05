@@ -2,8 +2,9 @@ package moshpit
 
 import (
 	"bytes"
-	"golang.org/x/net/context"
 	"io"
+
+	"context"
 )
 
 // RemoveFrames writes a copy of the AVI data from the input reader
@@ -37,7 +38,7 @@ func RemoveFrames(ctx context.Context, input io.Reader, output io.Writer,
 						return
 					}
 
-					if bytes.Compare(frame[5:8], iframePrefix) == 0 {
+					if bytes.Equal(frame[5:8], iframePrefix) {
 						// we found the first I-Frame - increment
 						// the counter to stop the search and begin moshing
 						i++

@@ -59,7 +59,7 @@ func (p *floatProgressBar) SetProgress(progress float64) {
 	if toAdd == 0 {
 		p.RenderBlank()
 	} else {
-		p.Add(toAdd)
+		_ = p.Add(toAdd)
 		p.current += toAdd
 	}
 
@@ -68,13 +68,13 @@ func (p *floatProgressBar) SetProgress(progress float64) {
 
 func (p *floatProgressBar) RenderBlank() {
 	p.buf.Reset()
-	p.ProgressBar.RenderBlank()
+	_ = p.ProgressBar.RenderBlank()
 	p.writeRendered()
 }
 
 func (p *floatProgressBar) Clear() {
 	p.buf.Reset()
-	p.ProgressBar.Clear()
+	_ = p.ProgressBar.Clear()
 	p.writeRendered()
 }
 

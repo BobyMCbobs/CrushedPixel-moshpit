@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"golang.org/x/net/context"
+	"context"
 )
 
 // ConvertToAvi uses ffmpeg to convert the input file

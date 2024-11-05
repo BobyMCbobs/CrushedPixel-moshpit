@@ -16,9 +16,10 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/CrushedPixel/moshpit"
+
 	"github.com/c-bata/go-prompt"
 	"github.com/k0kubun/go-ansi"
-	"github.com/makeworld-the-better-one/moshpit"
 	"github.com/mitchellh/colorstring"
 	uuid "github.com/satori/go.uuid"
 )
@@ -57,10 +58,8 @@ func main() {
 	c := make(chan os.Signal, 2)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 	go func() {
-		select {
-		case <-c:
-			cancel()
-		}
+		<-c
+		cancel()
 	}()
 
 	var ffmpegLogPath string
@@ -385,7 +384,7 @@ func moshAvi(ctx context.Context, aviFileName string, moshFrames []uint64) (stri
 			}
 			os.Remove(moshedFileName)
 			return "", fmt.Errorf("error moshing AVI file: %s", err.Error())
-		case _ = <-processedChan:
+		case <-processedChan:
 			bar.SetProgress(0.5) // TODO: proper progress
 		}
 	}
